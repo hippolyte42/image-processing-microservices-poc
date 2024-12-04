@@ -1,4 +1,4 @@
-# POC : Image Upload and Processing
+# Proof of Concept : Image Upload and Processing
 
 ## Prerequisites
 
@@ -13,25 +13,25 @@
 make build
 ```
 
-2. Start the Services :
+2. Create and start service containers and network :
 
 ```bash
 make up
 ```
 
-3. Upload an Image to Service 1 :
+3. Upload an image to service 1 :
 
 ```bash
 curl -X POST -F "image=@path/to/your/image.jpg" http://localhost:3001/image
 ```
 
-4. Process the Image via Service 2 :
+4. Process the image via service 2 :
 
 ```bash
 curl http://localhost:3002/process/image.jpg --output blurred_image.jpg
 ```
 
-5. Stop the Services :
+5. Stop and remove service containers and network :
 
 ```bash
 make down
