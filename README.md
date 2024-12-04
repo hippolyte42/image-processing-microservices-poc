@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-- Docker
-- Docker Compose
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Installation and Usage
 
