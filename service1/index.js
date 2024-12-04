@@ -21,4 +21,15 @@ app.post("/image", upload.single("image"), (req, res) => {
   });
 });
 
+app.get("/image/:imageFileName", (req, res) => {
+  const imageFileName = req.params.imageFileName;
+  const imagePath = path.join(__dirname, "cache", imageFileName);
+
+  if (fs.existsSync(imagePath)) {
+    res.sendFile(imagePath);
+  } else {
+    res.status(404).send(`Image ${imageFileName} not found`);
+  }
+});
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
