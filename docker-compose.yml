@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  service1:
+    build:
+      context: ./service1
+    volumes:
+      - ./image-cache:/usr/src/app/cache
+    ports:
+      - "3001:3001"
+
+  service2:
+    build:
+      context: ./service2
+    ports:
+      - "3002:3002"
+    depends_on:
+      - service1
