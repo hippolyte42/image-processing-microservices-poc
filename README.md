@@ -14,6 +14,7 @@ This proof of concept demonstrates an image processing pipeline using microservi
   - [3. Upload an Image](#3-upload-an-image)
   - [4. Process the Image](#4-process-the-image)
   - [5. Stop and Clean Up](#5-stop-and-clean-up)
+- [Setting Up Environment Variables](#setting-up-environment-variables)
 - [Project Structure](#project-structure)
 - [Future Improvements](#future-improvements)
 
@@ -29,9 +30,7 @@ Ensure the following are installed on your system:
 
 Follow these steps to run the project:
 
-### 1. Build Docker Images
-
-Run the following command to build the Docker images for all services:
+### 1. Build Services
 
 ```bash
 make build
@@ -67,13 +66,17 @@ Stop all containers and remove the Docker network:
 make down
 ```
 
+## Setting Up Environment Variables
+
+To customize the application configuration, you can use a `.env` file to define environment variables. An example `.env.example` file is provided in the repository as a reference.
+
 ## Project Structure
 
 ```bash
 .
 ├── service1/          # Code for image upload service
 ├── service2/          # Code for image processing service
-├── docker-compose.yml # Service orchestration
+├── compose.yml        # Service orchestration
 ├── Makefile           # Simplified commands
 ├── assignment.pdf     # Project assignment
 └── README.md          # Project documentation
@@ -81,4 +84,4 @@ make down
 
 ## Future Improvements
 
-- Add error handling for unsupported file formats.
+- Add error handling middleware.

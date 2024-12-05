@@ -2,15 +2,16 @@ const express = require("express");
 const sharp = require("sharp");
 
 const app = express();
-const PORT = 3002;
+const PORT = process.env.PORT || 3002;
 
 app.get("/process/:imageFileName", async (req, res) => {
-  try {
-    const { imageFileName } = req.params;
-    const imageFileExtension = imageFileName.split(".").pop();
+  const { imageFileName } = req.params;
+  const imageFileExtension = imageFileName.split(".").pop();
+  const service1Port = process.env.PORT_SERVICE1 || 3001;
 
+  try {
     const response = await fetch(
-      `http://service1:3001/image/${imageFileName}`,
+      `http://service1:${service1Port}/image/${imageFileName}`,
       {
         method: "GET",
         headers: {
@@ -18,6 +19,9 @@ app.get("/process/:imageFileName", async (req, res) => {
         },
       }
     );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     const imageDataArrayBuffer = await response.arrayBuffer();
 
     const blurredImage = await sharp(imageDataArrayBuffer).blur(10).toBuffer();
@@ -25,11 +29,10 @@ app.get("/process/:imageFileName", async (req, res) => {
     res.set("Content-Type", `image/${imageFileExtension}`);
     res.send(blurredImage);
   } catch (err) {
-    res
-      .status(500)
-      .send(
-        `Error while processing image ${imageFileName} : ${JSON.stringify(err)}`
-      );
+    console.error(
+      `Error while processing image ${imageFileName} : ${JSON.stringify(err)}`
+    );
+    res.status(500).send(`Error while processing image ${imageFileName}`);
   }
 });
 
